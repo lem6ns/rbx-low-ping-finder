@@ -56,7 +56,7 @@
                 let serverList = json.data.filter(server => server.playing < server.maxPlayers - 1);
                 best = serverList.sort((server1, server2) => {
                     if ((server1.ping > server2.ping) < ping) return server1.ping > server2.ping;
-                })[0];
+                })[Math.floor(Math.random() * 5)];
                 cursor = json.nextPageCursor;
                 serversSearched += 100
                 if (!cursor) {
@@ -72,6 +72,7 @@
                     console.log(serverList, best);
                     Roblox.GameLauncher.joinGameInstance(place, best.id)
                     start.innerText = `done! ${best.playing} playing, you'll have ~${best.ping}ms`;
+                    cursor = '';
                     return setTimeout(function () {
                         start.innerText = 'start'
                     }, 5000);
